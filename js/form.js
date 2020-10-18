@@ -12,18 +12,19 @@ class Form{
   display(){
     var title = createElement("h2");
    title.html("Car Racing Game! 4 players");
-   title.position(130,0);
-   this.input.position(130,160);
-   this.button.position(250,300);
+   title.position(displayWidth/2-50,0);
+   this.input.position(displayWidth/2-40,displayHeight/2-80);
+   this.button.position(displayWidth/2+30,displayHeight/2);
    this.button.mousePressed(()=>{
      this.input.hide();
      this.button.hide();
      player.name = this.input.value();
      playercount+=1;
+     player.index = playercount;
      player.update();
      player.updatecount(playercount);
      this.greeting.html("hello "+player.name);
-     this.greeting.position(130,140);
+     this.greeting.position(displayWidth/2-70,displayHeight/4);
    })
   }
 }
