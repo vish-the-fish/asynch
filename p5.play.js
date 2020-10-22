@@ -614,8 +614,8 @@ defineLazyP5Property('allSprites', function() {
 });
 
 p5.prototype._mouseButtonIsPressed = function(buttonCode) {
-  return (this.mouseIsPressed && this.mouseButton === this.buttonCode) ||
-    (this.touchIsDown && this.buttonCode === this.LEFT);
+  return (this.mouseIsPressed && this.mouseButton === buttonCode) ||
+    (this.touchIsDown && buttonCode === this.LEFT);
 };
 
 p5.prototype.mouseDidMove = function() {
@@ -1069,36 +1069,36 @@ p5.prototype._isKeyInState = function(key, state) {
 };
 
 /**
-* Detects if a mouse this.button is currently down
+* Detects if a mouse button is currently down
 * Combines mouseIsPressed and mouseButton of p5
 *
 * @method mouseDown
-* @param {Number} [buttonCode] Mouse this.button constant LEFT, RIGHT or CENTER
-* @return {Boolean} True if the this.button is down
+* @param {Number} [buttonCode] Mouse button constant LEFT, RIGHT or CENTER
+* @return {Boolean} True if the button is down
 */
 p5.prototype.mouseDown = function(buttonCode) {
   return this._isMouseButtonInState(buttonCode, KEY_IS_DOWN);
 };
 
 /**
-* Detects if a mouse this.button is currently up
+* Detects if a mouse button is currently up
 * Combines mouseIsPressed and mouseButton of p5
 *
 * @method mouseUp
-* @param {Number} [buttonCode] Mouse this.button constant LEFT, RIGHT or CENTER
-* @return {Boolean} True if the this.button is up
+* @param {Number} [buttonCode] Mouse button constant LEFT, RIGHT or CENTER
+* @return {Boolean} True if the button is up
 */
 p5.prototype.mouseUp = function(buttonCode) {
   return this._isMouseButtonInState(buttonCode, KEY_IS_UP);
 };
 
 /**
- * Detects if a mouse this.button was released during the last cycle.
+ * Detects if a mouse button was released during the last cycle.
  * It can be used to trigger events once, to be checked in the draw cycle
  *
  * @method mouseWentUp
- * @param {Number} [buttonCode] Mouse this.button constant LEFT, RIGHT or CENTER
- * @return {Boolean} True if the this.button was just released
+ * @param {Number} [buttonCode] Mouse button constant LEFT, RIGHT or CENTER
+ * @return {Boolean} True if the button was just released
  */
 p5.prototype.mouseWentUp = function(buttonCode) {
   return this._isMouseButtonInState(buttonCode, KEY_WENT_UP);
@@ -1106,31 +1106,31 @@ p5.prototype.mouseWentUp = function(buttonCode) {
 
 
 /**
- * Detects if a mouse this.button was pressed during the last cycle.
+ * Detects if a mouse button was pressed during the last cycle.
  * It can be used to trigger events once, to be checked in the draw cycle
  *
  * @method mouseWentDown
- * @param {Number} [buttonCode] Mouse this.button constant LEFT, RIGHT or CENTER
- * @return {Boolean} True if the this.button was just pressed
+ * @param {Number} [buttonCode] Mouse button constant LEFT, RIGHT or CENTER
+ * @return {Boolean} True if the button was just pressed
  */
 p5.prototype.mouseWentDown = function(buttonCode) {
   return this._isMouseButtonInState(buttonCode, KEY_WENT_DOWN);
 };
 
 /**
- * Returns a constant for a mouse state given a string or a mouse this.button constant.
+ * Returns a constant for a mouse state given a string or a mouse button constant.
  *
  * @private
  * @method _clickKeyFromString
- * @param {Number|String} [buttonCode] Mouse this.button constant LEFT, RIGHT or CENTER
+ * @param {Number|String} [buttonCode] Mouse button constant LEFT, RIGHT or CENTER
  *   or string 'leftButton', 'rightButton', or 'centerButton'
- * @return {Number} Mouse this.button constant LEFT, RIGHT or CENTER or value of this.buttonCode
+ * @return {Number} Mouse button constant LEFT, RIGHT or CENTER or value of buttonCode
  */
 p5.prototype._clickKeyFromString = function(buttonCode) {
   if (this.CLICK_KEY[buttonCode]) {
     return this.CLICK_KEY[buttonCode];
   } else {
-    return this.buttonCode;
+    return buttonCode;
   }
 };
 
@@ -1142,24 +1142,24 @@ p5.prototype.CLICK_KEY = {
 };
 
 /**
- * Detects if a mouse this.button is in the given state during the last cycle.
- * Helper method encapsulating common mouse this.button state logic; it may be
+ * Detects if a mouse button is in the given state during the last cycle.
+ * Helper method encapsulating common mouse button state logic; it may be
  * preferable to call mouseWentUp, etc, directly.
  *
  * @private
  * @method _isMouseButtonInState
- * @param {Number|String} [buttonCode] Mouse this.button constant LEFT, RIGHT or CENTER
+ * @param {Number|String} [buttonCode] Mouse button constant LEFT, RIGHT or CENTER
  *   or string 'leftButton', 'rightButton', or 'centerButton'
  * @param {Number} state
- * @return {boolean} True if the this.button was in the given state
+ * @return {boolean} True if the button was in the given state
  */
 p5.prototype._isMouseButtonInState = function(buttonCode, state) {
   var mouseStates = this._p5play.mouseStates;
 
-  this.buttonCode = this._clickKeyFromString(buttonCode);
+  buttonCode = this._clickKeyFromString(buttonCode);
 
   if(buttonCode === undefined)
-    this.buttonCode = this.LEFT;
+    buttonCode = this.LEFT;
 
   //undefined = not tracked yet, start tracking
   if(mouseStates[buttonCode]===undefined)
@@ -5234,7 +5234,7 @@ function updateTree() {
   }
 }
 
-//keyboard this.input
+//keyboard input
 p5.prototype.registerMethod('pre', p5.prototype.readPresses);
 
 //automatic sprite update
